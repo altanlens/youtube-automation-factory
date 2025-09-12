@@ -1,0 +1,48 @@
+{
+  "id": "g-ne-sistemindeki-gezegenler-1757619536016",
+  "composition": "AiVideo",
+  "durationInFrames": 930,
+  "audioUrl": "audio/g-ne-sistemindeki-gezegenler-1757619536016.mp3",
+  "subtitles": [
+    {
+      "text": "Güneş sistemimiz sekiz gezegenden oluşur: Merkür, Venüs, Dünya, Mars, Jüpiter, Satürn, Uranüs ve Neptün.",
+      "start": 1,
+      "duration": 4.666666666666667
+    },
+    {
+      "text": "Merkür, Güneş'e en yakın gezegendir ve en küçük gezegendir.",
+      "start": 6.166666666666667,
+      "duration": 3
+    },
+    {
+      "text": "Venüs, en sıcak gezegen olup yoğun bir atmosfere sahiptir.",
+      "start": 9.666666666666668,
+      "duration": 3
+    },
+    {
+      "text": "Dünya, yaşam barındıran tek bilinen gezegendir.",
+      "start": 13.166666666666668,
+      "duration": 2
+    },
+    {
+      "text": "Mars, yüzeyinde su izleri olan kızıl bir gezegendir.",
+      "start": 15.666666666666668,
+      "duration": 2.6666666666666665
+    },
+    {
+      "text": "Jüpiter, Güneş sistemindeki en büyük gezegendir ve güçlü fırtınalara sahiptir.",
+      "start": 18.833333333333336,
+      "duration": 3.3333333333333335
+    },
+    {
+      "text": "Satürn, görkemli halkalarıyla ünlüdür.",
+      "start": 22.666666666666668,
+      "duration": 2
+    },
+    {
+      "text": "Uranüs ve Neptün ise buz devleri olarak adlandırılır ve çok uzak mesafelerde yer alırlar.",
+      "start": 25.166666666666668,
+      "duration": 4.666666666666667
+    }
+  ]
+}

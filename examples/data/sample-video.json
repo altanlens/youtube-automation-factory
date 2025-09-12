@@ -1,0 +1,13 @@
+{
+  "id": "sample-video-001",
+  "composition": "HelloWorld",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "title": "Sample Video - Introduction to Remotion",
+  "description": "This is a sample video created with the YouTube Automation Station.",
+  "tags": ["sample", "remotion", "automation"],
+  "privacyStatus": "private",
+  "titleText": "Hello, Automation!",
+  "titleColor": "rgb(41, 128, 185)"
+}
