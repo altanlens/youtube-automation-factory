@@ -33,61 +33,56 @@ if (!fs.existsSync(outputDir)) {
 }
 
 const videoId = videoConfig.id || path.basename(inputFile, ".json");
-const tempOutputPath = path.join(outputDir, `${videoId}-no-audio.mp4`);
-const finalOutputPath = path.join(outputDir, `${videoId}.mp4`);
-const audioInputPath = path.join(process.cwd(), "public", videoConfig.audioUrl);
+const outputPath = path.join(outputDir, `${videoId}.mp4`);
 
 console.log(`🎬 Generating video: ${videoId}`);
 console.log(`📝 Input: ${inputFile}`);
-console.log(`🔇 Temporary (silent) output: ${tempOutputPath}`);
-console.log(`🔊 Final output: ${finalOutputPath}`);
+console.log(`📹 Output: ${outputPath}`);
+
+// Ses dosyasını public klasörüne kopyala (Remotion için)
+if (videoConfig.audioPath && fs.existsSync(videoConfig.audioPath)) {
+  const publicDir = "./public";
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+
+  const audioFileName = path.basename(videoConfig.audioPath);
+  const publicAudioPath = path.join(publicDir, audioFileName);
+
+  if (!fs.existsSync(publicAudioPath)) {
+    fs.copyFileSync(videoConfig.audioPath, publicAudioPath);
+    console.log(`🔊 Audio file copied to public: ${publicAudioPath}`);
+  }
+
+  // Config'deki ses yolunu güncelle
+  videoConfig.audioPath = audioFileName;
+  fs.writeFileSync(inputFile, JSON.stringify(videoConfig, null, 2));
+}
 
 try {
-  const compositionId = videoConfig.composition || "AiVideo";
+  const compositionId = videoConfig.composition || "AIVideo";
   const fps = videoConfig.fps || process.env.VIDEO_FPS || 30;
   const width = videoConfig.width || process.env.VIDEO_WIDTH || 1920;
   const height = videoConfig.height || process.env.VIDEO_HEIGHT || 1080;
 
-  console.log(`\n🔄 STEP 1: Rendering silent video with Remotion...`);
-  const remotionCommand = `npx remotion render src/index.ts ${compositionId} ${tempOutputPath} --props="${inputFile}" --fps=${fps} --width=${width} --height=${height} --log=verbose`;
+  console.log(`🔄 Rendering composition: ${compositionId}`);
+  console.log(`🎵 Audio included: ${videoConfig.audioPath ? "Yes" : "No"}`);
 
-  console.log(`⚙️ Executing: ${remotionCommand}`);
-  execSync(remotionCommand, { stdio: "inherit" });
-  console.log(`✅ Silent video generated successfully: ${tempOutputPath}`);
+  // Props'ları JSON string olarak hazırla
+  const propsJson = JSON.stringify(videoConfig).replace(/"/g, '\\"');
 
-  console.log(`\n🔄 STEP 2: Adding audio with FFmpeg...`);
-  if (!fs.existsSync(audioInputPath)) {
-    throw new Error(`Audio file not found at: ${audioInputPath}`);
+  const command = `npx remotion render src/index.ts ${compositionId} ${outputPath} --props="{${propsJson}}" --fps=${fps} --width=${width} --height=${height} --log=verbose --codec=h264`;
+
+  console.log(`⚙️ Executing render command...`);
+  execSync(command, { stdio: "inherit" });
+
+  console.log(`✅ Video generated successfully: ${outputPath}`);
+
+  // Ses dosyasının dahil edildiğini doğrula
+  if (videoConfig.audioPath) {
+    console.log(`🔊 Audio track included from: ${videoConfig.audioPath}`);
   }
-
-  // FFmpeg komutu: Sessiz videoyu ve ses dosyasını birleştirir.
-  // -i: input dosyaları (video ve ses)
-  // -c:v copy: Video stream'ini yeniden kodlamadan kopyala (çok daha hızlı)
-  // -c:a aac: Ses stream'ini AAC formatına kodla (yaygın uyumluluk için)
-  // -shortest: Çıktı videosunun süresini en kısa input'a göre ayarla (video veya sesten hangisi kısaysa)
-  const ffmpegCommand = `ffmpeg -i "${tempOutputPath}" -i "${audioInputPath}" -c:v copy -c:a aac -shortest "${finalOutputPath}"`;
-
-  console.log(`⚙️ Executing: ${ffmpegCommand}`);
-  execSync(ffmpegCommand, { stdio: "inherit" });
-  console.log(
-    `✅ Audio added successfully. Final video is at: ${finalOutputPath}`
-  );
-
-  console.log(`\n🔄 STEP 3: Cleaning up temporary file...`);
-  fs.unlinkSync(tempOutputPath);
-  console.log(`✅ Temporary file deleted: ${tempOutputPath}`);
 } catch (error) {
-  console.error(`\n❌ Error generating video: ${error.message}`);
-  // Hata durumunda geçici dosyayı silmeyi dene
-  if (fs.existsSync(tempOutputPath)) {
-    try {
-      fs.unlinkSync(tempOutputPath);
-      console.log(`🧹 Cleaned up temporary file after error.`);
-    } catch (cleanupError) {
-      console.error(
-        `🧹 Error cleaning up temporary file: ${cleanupError.message}`
-      );
-    }
-  }
+  console.error(`❌ Error generating video: ${error.message}`);
   process.exit(1);
 }

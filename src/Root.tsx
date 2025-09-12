@@ -1,59 +1,35 @@
 import React from "react";
 import { Composition } from "remotion";
-import { HelloWorld } from "./compositions/HelloWorld";
-import {
-  AiVideo,
-  AiVideoProps,
-  calculateVideoDuration,
-} from "./compositions/AiVideo";
-import "./style.css";
+import { AIVideo } from "./compositions/AIVideo";
+import { Main } from "./compositions/Main";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="HelloWorld"
-        component={HelloWorld}
-        durationInFrames={150}
+        id="Main"
+        component={Main}
+        durationInFrames={3000} // 100 saniye 30fps
         fps={30}
         width={1920}
         height={1080}
         defaultProps={{
-          titleText: "Welcome to Remotion",
-          titleColor: "rgb(0, 123, 255)",
+          title: "YouTube Automation Factory",
+          subtitle: "AI Powered Video Generation",
         }}
       />
-
-      {/* AI Video Kompozisyonu - Dinamik süre ile */}
       <Composition
-        id="AiVideo"
-        component={AiVideo}
-        // ❌ Eski sabit süre kaldırıldı: durationInFrames={900}
-        // ✅ Yeni dinamik süre hesaplama:
-        calculateMetadata={({ props }) => {
-          const subtitles = props.subtitles || [];
-          const duration = calculateVideoDuration(subtitles);
-
-          return {
-            durationInFrames: duration * 30, // 30 fps ile çarp
-            fps: 30,
-            width: 1920,
-            height: 1080,
-          };
-        }}
+        id="AIVideo"
+        component={AIVideo}
+        durationInFrames={3600} // 120 saniye 30fps
         fps={30}
         width={1920}
         height={1080}
         defaultProps={{
-          subtitles: [
-            {
-              text: "Bu bir test altyazısıdır.",
-              start: 1,
-              duration: 3,
-              imageUrl: null, // imageUrl alanı eklendi
-            },
-          ],
-          totalDurationInSeconds: 60, // Varsayılan maksimum süre
+          script: "Default script text",
+          audioPath: "",
+          scenes: [],
+          title: "AI Generated Video",
         }}
       />
     </>
