@@ -45,42 +45,67 @@ async function main() {
   const videoId = videoConfig.id || path.basename(inputFile, ".json");
   const finalVideoPath = path.join(outputDir, `${videoId}.mp4`);
   const silentVideoPath = path.join(outputDir, `${videoId}-no-audio.mp4`);
-  const audioPath = path.join(process.cwd(), "public", videoConfig.audioUrl);
+
+  // Ses dosyası kontrolü - sadece varsa işle
+  let actualAudioPath = null;
+  if (videoConfig.audioUrl) {
+    const audioPath = path.join(process.cwd(), "public", videoConfig.audioUrl);
+
+    if (fs.existsSync(audioPath)) {
+      actualAudioPath = audioPath;
+    } else {
+      // Alternatif yol denemeleri
+      const altPath1 = path.join(process.cwd(), videoConfig.audioUrl);
+      const altPath2 = path.join(process.cwd(), "public", "audio", path.basename(videoConfig.audioUrl));
+
+      if (fs.existsSync(altPath1)) {
+        actualAudioPath = altPath1;
+        logInfo(`Alternatif ses dosyası yolu kullanılıyor: ${altPath1}`);
+      } else if (fs.existsSync(altPath2)) {
+        actualAudioPath = altPath2;
+        logInfo(`Alternatif ses dosyası yolu kullanılıyor: ${altPath2}`);
+      }
+    }
+  }
 
   console.log(`🎬 Video oluşturuluyor: ${videoId}`);
   logInfo(`Girdi: ${inputFile}`);
-  logInfo(`Ses kaynağı: ${audioPath}`);
+  logInfo(`Ses kaynağı: ${actualAudioPath || "Ses yok (sessiz video)"}`);
   logInfo(`Nihai çıktı: ${finalVideoPath}`);
 
   try {
-    // Adım 1: Remotion ile sessiz videoyu oluştur
-    logStep("1/3", "Remotion ile sessiz video render ediliyor...");
+    const compositionId = videoConfig.composition || "HelloWorld";
+    const durationInFrames = videoConfig.durationInFrames || 150; // Varsayılan 5 saniye
 
-    const compositionId = videoConfig.composition || "AiVideo";
-    const durationInFrames = videoConfig.durationInFrames;
-    if (!durationInFrames) {
-      logError("durationInFrames değeri JSON dosyasında tanımlı değil.");
+    if (actualAudioPath) {
+      // Ses var - normal işlem
+      logStep("1/3", "Remotion ile sessiz video render ediliyor...");
+
+      const remotionCommand = `npx remotion render src/index.ts ${compositionId} ${silentVideoPath} --props=${inputFile} --duration-in-frames=${durationInFrames} --log=verbose`;
+
+      logInfo(`Çalıştırılıyor: ${remotionCommand}`);
+      execSync(remotionCommand, { stdio: "inherit" });
+      logSuccess(`Sessiz video başarıyla oluşturuldu: ${silentVideoPath}`);
+
+      // Adım 2: FFmpeg ile sesi videoya ekle
+      logStep("2/3", "FFmpeg ile ses ve video birleştiriliyor...");
+      await runFFmpeg(silentVideoPath, actualAudioPath, finalVideoPath);
+      logSuccess(`Nihai video oluşturuldu: ${finalVideoPath}`);
+
+      // Adım 3: Geçici sessiz video dosyasını sil
+      logStep("3/3", "Geçici dosyalar temizleniyor...");
+      fs.unlinkSync(silentVideoPath);
+      logSuccess(`Geçici dosya silindi: ${silentVideoPath}`);
+    } else {
+      // Ses yok - direkt render
+      logStep("1/1", "Remotion ile video render ediliyor (sessiz)...");
+
+      const remotionCommand = `npx remotion render src/index.ts ${compositionId} ${finalVideoPath} --props=${inputFile} --duration-in-frames=${durationInFrames} --log=verbose`;
+
+      logInfo(`Çalıştırılıyor: ${remotionCommand}`);
+      execSync(remotionCommand, { stdio: "inherit" });
+      logSuccess(`Video başarıyla oluşturuldu: ${finalVideoPath}`);
     }
-
-    // DÜZELTME: --props parametresine dosya içeriği yerine dosya yolu veriliyor.
-    const remotionCommand = `npx remotion render src/index.ts ${compositionId} ${silentVideoPath} --props=${inputFile} --duration-in-frames=${durationInFrames} --log=verbose`;
-
-    logInfo(`Çalıştırılıyor: ${remotionCommand}`);
-    execSync(remotionCommand, { stdio: "inherit" });
-    logSuccess(`Sessiz video başarıyla oluşturuldu: ${silentVideoPath}`);
-
-    // Adım 2: FFmpeg ile sesi videoya ekle
-    logStep("2/3", "FFmpeg ile ses ve video birleştiriliyor...");
-    if (!fs.existsSync(audioPath)) {
-      logError(`Ses dosyası bulunamadı: ${audioPath}`);
-    }
-    await runFFmpeg(silentVideoPath, audioPath, finalVideoPath);
-    logSuccess(`Nihai video oluşturuldu: ${finalVideoPath}`);
-
-    // Adım 3: Geçici sessiz video dosyasını sil
-    logStep("3/3", "Geçici dosyalar temizleniyor...");
-    fs.unlinkSync(silentVideoPath);
-    logSuccess(`Geçici dosya silindi: ${silentVideoPath}`);
 
     console.log("\n🎉 Video üretimi başarıyla tamamlandı!");
   } catch (error) {
@@ -100,8 +125,11 @@ function runFFmpeg(silentVideo, audio, finalVideo) {
       "copy",
       "-c:a",
       "aac",
-      "-strict",
-      "experimental",
+      "-b:a",
+      "128k",
+      "-shortest",
+      "-avoid_negative_ts",
+      "make_zero",
       finalVideo,
       "-y", // Varolan dosyanın üzerine yaz
     ];

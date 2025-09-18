@@ -1,0 +1,38 @@
+{
+  "id": "mars-manual-test",
+  "composition": "AiVideo",
+  "durationInFrames": 600,
+  "audioUrl": "audio/mars-manual-test.mp3",
+  "subtitles": [
+    {
+      "text": "Mars, güneş sistemimizin dördüncü gezegenidir.",
+      "start": 0.5,
+      "duration": 3.5,
+      "imageUrl": null
+    },
+    {
+      "text": "Kırmızı gezegen olarak bilinir ve yüzeyi demir oksit ile kaplıdır.",
+      "start": 4.0,
+      "duration": 4.0,
+      "imageUrl": null
+    },
+    {
+      "text": "Mars'ta kutup bölgelerinde su buzu bulunmaktadır.",
+      "start": 8.0,
+      "duration": 3.5,
+      "imageUrl": null
+    },
+    {
+      "text": "NASA'nın Perseverance gezgini Mars'ın yüzeyini keşfetmektedir.",
+      "start": 11.5,
+      "duration": 4.0,
+      "imageUrl": null
+    },
+    {
+      "text": "Gelecekte insanlı Mars misyonları planlanmaktadır.",
+      "start": 15.5,
+      "duration": 4.0,
+      "imageUrl": null
+    }
+  ]
+}

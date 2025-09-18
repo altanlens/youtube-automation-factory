@@ -5,7 +5,6 @@ const dotenv = require("dotenv");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { createClient } = require("pexels");
 const googleTTS = require("google-tts-api");
-const axios = require("axios");
 const { execSync } = require("child_process");
 
 dotenv.config();
@@ -62,57 +61,116 @@ const GeminiAPI = {
   },
 };
 
-const ElevenLabsAPI = {
-  generateSpeech: async (text, outputPath) => {
-    logInfo("[ElevenLabs] Ses dosyası oluşturuluyor...");
-    if (!process.env.ELEVENLABS_API_KEY)
-      throw new Error("ELEVENLABS_API_KEY .env dosyasında tanımlı değil.");
-
-    const response = await axios({
-      method: "post",
-      url: `https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM`,
-      data: { text, model_id: "eleven_multilingual_v2" },
-      headers: {
-        "xi-api-key": process.env.ELEVENLABS_API_KEY,
-        "Content-Type": "application/json",
-        Accept: "audio/mpeg",
-      },
-      responseType: "arraybuffer",
-    });
-    fs.writeFileSync(outputPath, response.data);
-  },
-};
+// ElevenLabs API kaldırıldı - sadece Google TTS kullanılıyor
 
 const GoogleTTSAPI = {
   generateSpeech: async (text, tempDir, finalOutputPath) => {
-    logInfo("Fallback: Google TTS kullanılıyor...");
-    const sentences = text.match(/[^.!?]+[.!?\n]+/g) || [text];
+    logInfo("Google TTS ile ses oluşturuluyor...");
+
+    // Akıllı metin bölme - hem cümle hem de karakter limiti
+    const chunks = GoogleTTSAPI.smartTextSplit(text);
     const chunkFiles = [];
 
-    for (let i = 0; i < sentences.length; i++) {
-      const sentence = sentences[i];
-      const chunkPath = path.join(tempDir, `chunk_${i}.mp3`);
-      const audioBase64 = await googleTTS.getAudioBase64(sentence, {
-        lang: "tr",
-        slow: false,
-      });
-      fs.writeFileSync(chunkPath, Buffer.from(audioBase64, "base64"));
-      chunkFiles.push(chunkPath);
+    logInfo(`Toplam ${chunks.length} parça halinde işlenecek`);
+
+    for (let i = 0; i < chunks.length; i++) {
+      const chunk = chunks[i];
+      const chunkPath = path.join(tempDir, `chunk_${i.toString().padStart(3, '0')}.mp3`);
+
+      try {
+        logInfo(`Parça ${i + 1}/${chunks.length}: "${chunk.substring(0, 50)}..."`);
+
+        const audioBase64 = await googleTTS.getAudioBase64(chunk, {
+          lang: "tr",
+          slow: false,
+          host: "https://translate.google.com",
+        });
+
+        fs.writeFileSync(chunkPath, Buffer.from(audioBase64, "base64"));
+        chunkFiles.push(chunkPath);
+
+        // Rate limiting - Google TTS için önemli
+        await GoogleTTSAPI.sleep(500);
+
+      } catch (error) {
+        logError(`Parça ${i + 1} hatası:`, error.message);
+        throw error;
+      }
     }
 
-    const listFilePath = path.join(tempDir, "list.txt");
-    const fileListContent = chunkFiles
-      .map((file) => `file '${path.resolve(file)}'`)
-      .join("\n");
-    fs.writeFileSync(listFilePath, fileListContent);
-
-    const command = `ffmpeg -f concat -safe 0 -i "${listFilePath}" -c copy "${finalOutputPath}" -y`;
-    execSync(command, { stdio: "pipe" });
+    await GoogleTTSAPI.combineAudioFiles(chunkFiles, tempDir, finalOutputPath);
 
     // Temizlik
-    chunkFiles.forEach((file) => fs.unlinkSync(file));
-    fs.unlinkSync(listFilePath);
+    chunkFiles.forEach((file) => {
+      if (fs.existsSync(file)) fs.unlinkSync(file);
+    });
   },
+
+  // Gelişmiş metin bölme - karakter limiti ve cümle yapısı
+  smartTextSplit: (text, maxLength = 200) => {
+    // Önce cümlelere böl
+    const sentences = text.match(/[^.!?]+[.!?\n]+/g) || [text];
+    const chunks = [];
+    let currentChunk = "";
+
+    for (const sentence of sentences) {
+      const cleanSentence = sentence.trim();
+
+      // Eğer mevcut chunk + yeni cümle limit aşarsa
+      if (currentChunk.length + cleanSentence.length > maxLength && currentChunk.length > 0) {
+        chunks.push(currentChunk.trim());
+        currentChunk = cleanSentence;
+      } else {
+        currentChunk += (currentChunk.length > 0 ? " " : "") + cleanSentence;
+      }
+    }
+
+    // Son chunk'ı ekle
+    if (currentChunk.trim().length > 0) {
+      chunks.push(currentChunk.trim());
+    }
+
+    return chunks;
+  },
+
+  // FFmpeg ile ses dosyalarını birleştirme (fallback: ilk chunk'ı kullan)
+  combineAudioFiles: async (chunkFiles, tempDir, finalOutputPath) => {
+    logInfo(`${chunkFiles.length} ses dosyası birleştiriliyor...`);
+
+    try {
+      // FFmpeg ile birleştirme deneyelim
+      const listFilePath = path.join(tempDir, "concat_list.txt");
+      const fileListContent = chunkFiles
+        .map((file) => `file '${path.resolve(file).replace(/\\/g, '/')}'`)
+        .join("\n");
+
+      fs.writeFileSync(listFilePath, fileListContent);
+
+      const command = `ffmpeg -f concat -safe 0 -i "${listFilePath}" -c copy "${finalOutputPath}" -y`;
+
+      execSync(command, { stdio: "pipe" });
+      logSuccess("FFmpeg ile ses dosyaları başarıyla birleştirildi");
+
+      // List dosyasını temizle
+      if (fs.existsSync(listFilePath)) {
+        fs.unlinkSync(listFilePath);
+      }
+
+    } catch (ffmpegError) {
+      logError("FFmpeg bulunamadı, basit birleştirme yapılıyor...");
+
+      // Fallback: Tüm chunk'ları tek dosyada birleştir (binary concat)
+      const finalBuffer = Buffer.concat(
+        chunkFiles.map(file => fs.readFileSync(file))
+      );
+
+      fs.writeFileSync(finalOutputPath, finalBuffer);
+      logSuccess(`${chunkFiles.length} ses dosyası basit yöntemle birleştirildi`);
+    }
+  },
+
+  // Yardımcı sleep fonksiyonu
+  sleep: (ms) => new Promise(resolve => setTimeout(resolve, ms)),
 };
 
 const PexelsAPI = {
@@ -175,18 +233,13 @@ async function main() {
     log("2/4", "Ses dosyası oluşturuluyor...");
     const audioPath = path.join(audioDir, `${outputId}.mp3`);
 
-    try {
-      await ElevenLabsAPI.generateSpeech(fullScriptText, audioPath);
-      logSuccess("ElevenLabs ile ses dosyası başarıyla oluşturuldu.");
-    } catch (elevenError) {
-      logError("ElevenLabs hatası:", elevenError.message);
-      await GoogleTTSAPI.generateSpeech(
-        fullScriptText,
-        tempAudioDir,
-        audioPath
-      );
-      logSuccess("Google TTS ile ses dosyası başarıyla oluşturuldu.");
-    }
+    // Direkt Google TTS kullanımı
+    await GoogleTTSAPI.generateSpeech(
+      fullScriptText,
+      tempAudioDir,
+      audioPath
+    );
+    logSuccess("Google TTS ile ses dosyası başarıyla oluşturuldu.");
 
     log("3/4", "Görseller Pexels ile aranıyor ve altyazılar hazırlanıyor...");
     let currentTime = 0.5;

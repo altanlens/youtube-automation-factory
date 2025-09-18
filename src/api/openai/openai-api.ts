@@ -63,8 +63,8 @@ export class OpenAIAPI {
       const content = response.choices[0].message.content || '';
       const points = content
         .split('\n')
-        .filter(line => line.trim().match(/^\d+\.\s+/))
-        .map(line => line.replace(/^\d+\.\s+/, '').trim());
+        .filter((line: string) => line.trim().match(/^\d+\.\s+/))
+        .map((line: string) => line.replace(/^\d+\.\s+/, '').trim());
       return points;
     } catch (error) {
       console.error('Error generating outline with OpenAI:', error);

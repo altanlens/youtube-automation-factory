@@ -11,42 +11,49 @@ import {
 	staticFile
 } from 'remotion';
 
-interface Scene {
+interface Subtitle {
 	text: string;
-	keyword: string;
-	imageUrl: string | null;
+	start: number;
 	duration: number;
+	imageUrl: string | null;
 }
 
 interface AIVideoProps {
-	script: string;
-	audioPath: string;
-	scenes: Scene[];
-	title: string;
+	audioUrl?: string;
+	subtitles?: Subtitle[];
 }
 
 export const AIVideo: React.FC<AIVideoProps> = ({
-	script,
-	audioPath,
-	scenes,
-	title
+	audioUrl,
+	subtitles = []
 }) => {
 	const frame = useCurrentFrame();
 	const { fps } = useVideoConfig();
 
-	// Sahne geçişleri için hesaplamalar
-	const sceneDurationInFrames = fps * 3; // Her sahne 3 saniye
-	const currentSceneIndex = Math.floor(frame / sceneDurationInFrames);
-	const currentScene = scenes[currentSceneIndex] || scenes[0];
+	// Mevcut zamanı hesapla (saniye cinsinden)
+	const currentTime = frame / fps;
+
+	// Aktif altyazıyı bul
+	const currentSubtitle = subtitles.find(subtitle =>
+		currentTime >= subtitle.start && currentTime < subtitle.start + subtitle.duration
+	);
 
 	// Animasyon değerleri
-	const progress = (frame % sceneDurationInFrames) / sceneDurationInFrames;
-	const scale = interpolate(progress, [0, 0.1, 0.9, 1], [1, 1.05, 1.05, 1]);
-	const opacity = interpolate(progress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
+	const scale = currentSubtitle ? interpolate(
+		currentTime,
+		[currentSubtitle.start, currentSubtitle.start + 0.3, currentSubtitle.start + currentSubtitle.duration - 0.3, currentSubtitle.start + currentSubtitle.duration],
+		[1, 1.05, 1.05, 1]
+	) : 1;
+
+	const opacity = currentSubtitle ? interpolate(
+		currentTime,
+		[currentSubtitle.start, currentSubtitle.start + 0.3, currentSubtitle.start + currentSubtitle.duration - 0.3, currentSubtitle.start + currentSubtitle.duration],
+		[0, 1, 1, 0]
+	) : 0;
 
 	// Spring animasyonu
 	const springValue = spring({
-		frame: frame % sceneDurationInFrames,
+		frame: frame,
 		fps,
 		config: {
 			damping: 200,
@@ -56,18 +63,18 @@ export const AIVideo: React.FC<AIVideoProps> = ({
 	return (
 		<AbsoluteFill style={{ backgroundColor: '#000' }}>
 			{/* Ses dosyası */}
-			{audioPath && (
+			{audioUrl && (
 				<Audio
-					src={audioPath.startsWith('http') ? audioPath : staticFile(audioPath.replace(/^.*\//, ''))}
+					src={audioUrl.startsWith('http') ? audioUrl : staticFile(audioUrl.replace(/^.*\//, ''))}
 					volume={1}
 				/>
 			)}
 
 			{/* Arka plan görseli */}
-			{currentScene?.imageUrl && (
+			{currentSubtitle?.imageUrl && (
 				<AbsoluteFill>
 					<Img
-						src={currentScene.imageUrl}
+						src={currentSubtitle.imageUrl}
 						style={{
 							width: '100%',
 							height: '100%',
@@ -85,33 +92,8 @@ export const AIVideo: React.FC<AIVideoProps> = ({
 				</AbsoluteFill>
 			)}
 
-			{/* Başlık */}
-			<AbsoluteFill
-				style={{
-					justifyContent: 'center',
-					alignItems: 'center',
-					padding: 40,
-				}}
-			>
-				<div
-					style={{
-						fontSize: 60,
-						fontWeight: 'bold',
-						color: 'white',
-						textAlign: 'center',
-						textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-						transform: `translateY(${interpolate(springValue, [0, 1], [50, 0])}px)`,
-						opacity: springValue,
-						lineHeight: 1.2,
-						maxWidth: '80%',
-					}}
-				>
-					{title}
-				</div>
-			</Sequence>
-
-			{/* Alt başlık/metin */}
-			{currentScene?.text && frame > 30 && (
+			{/* Altyazı metni */}
+			{currentSubtitle && (
 				<AbsoluteFill
 					style={{
 						justifyContent: 'flex-end',
@@ -121,17 +103,19 @@ export const AIVideo: React.FC<AIVideoProps> = ({
 				>
 					<div
 						style={{
-							fontSize: 24,
+							fontSize: 32,
 							color: 'white',
 							textAlign: 'center',
 							backgroundColor: 'rgba(0,0,0,0.8)',
 							padding: '20px 40px',
 							borderRadius: 10,
-							maxWidth: '80%',
+							maxWidth: '90%',
 							opacity,
+							textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+							lineHeight: 1.4,
 						}}
 					>
-						{currentScene.text}
+						{currentSubtitle.text}
 					</div>
 				</AbsoluteFill>
 			)}
@@ -154,11 +138,10 @@ export const AIVideo: React.FC<AIVideoProps> = ({
 				>
 					<div
 						style={{
-							width: `${(frame / (scenes.length * sceneDurationInFrames)) * 100}%`,
+							width: `${subtitles.length > 0 ? (currentTime / (subtitles[subtitles.length - 1].start + subtitles[subtitles.length - 1].duration)) * 100 : 0}%`,
 							height: '100%',
 							backgroundColor: '#ff4444',
 							borderRadius: 2,
-							transition: 'width 0.3s ease',
 						}}
 					/>
 				</div>

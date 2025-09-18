@@ -1,0 +1,20 @@
+{
+  "id": "test-audio-video",
+  "composition": "AiVideo",
+  "durationInFrames": 300,
+  "audioUrl": "audio/test-audio.mp3",
+  "subtitles": [
+    {
+      "text": "Bu bir test altyazısıdır.",
+      "start": 0.5,
+      "duration": 3,
+      "imageUrl": null
+    },
+    {
+      "text": "İkinci test altyazısı burada.",
+      "start": 3.5,
+      "duration": 4,
+      "imageUrl": null
+    }
+  ]
+}
