@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "title": "Can you really make yourself smarter by just doing one thing consistently? - motivational video",
+    "description": "AI generated motivational content about Can you really make yourself smarter by just doing one thing consistently?",
+    "duration": 60,
+    "style": "motivational",
+    "language": "en"
+  },
+  "scenes": [
+    {
+      "id": "intro",
+      "type": "text",
+      "start": 0,
+      "duration": 20,
+      "data": {
+        "title": "Can you really make yourself smarter by just doing one thing consistently?",
+        "subtitle": "Motivation",
+        "content": [
+          "In this video we will learn about Can you really make yourself smarter by just doing one thing consistently?",
+          "With detailed explanations and visuals"
+        ],
+        "style": {
+          "fontSize": 48,
+          "color": "#2196F3",
+          "fontWeight": "bold",
+          "textAlign": "center"
+        }
+      },
+      "animation": {
+        "type": "fade-in",
+        "speed": "normal"
+      },
+      "audio": {
+        "narration": "Hello! Today we will explore Can you really make yourself smarter by just doing one thing consistently?."
+      }
+    },
+    {
+      "id": "main-content",
+      "type": "excalidraw",
+      "start": 20,
+      "duration": 20,
+      "data": {
+        "elements": [
+          {
+            "id": "main-title",
+            "type": "text",
+            "x": 400,
+            "y": 200,
+            "width": 300,
+            "height": 50,
+            "angle": 0,
+            "strokeColor": "#2196F3",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 1,
+            "seed": 45199,
+            "versionNonce": 285993,
+            "isDeleted": false,
+            "text": "Can you really make yourself smarter by just doing one thing consistently?",
+            "fontSize": 32,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ],
+        "appState": {
+          "viewBackgroundColor": "#ffffff"
+        }
+      },
+      "animation": {
+        "type": "progressive-draw",
+        "speed": "normal"
+      },
+      "audio": {
+        "narration": "Let's explore detailed information about Can you really make yourself smarter by just doing one thing consistently?."
+      }
+    }
+  ],
+  "audio": {
+    "narration": "Can you really make yourself smarter by just doing one thing consistently? konusu hakkında video",
+    "volume": 0.8
+  }
+}

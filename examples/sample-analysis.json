@@ -1,0 +1,200 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "title": "Pisagor Teoremi Nedir?",
+    "description": "Pisagor teoremini öğrenmek için interaktif matematik dersi",
+    "duration": 8,
+    "style": "educational",
+    "language": "tr"
+  },
+  "scenes": [
+    {
+      "id": "intro",
+      "type": "text",
+      "start": 0,
+      "duration": 3,
+      "data": {
+        "title": "Pisagor Teoremi",
+        "subtitle": "Matematik Dersi",
+        "content": [
+          "Bu derste Pisagor teoremini öğreneceğiz",
+          "Dik üçgenlerde kullanılan temel formül"
+        ],
+        "style": {
+          "fontSize": 48,
+          "color": "#2196F3",
+          "fontWeight": "bold",
+          "textAlign": "center"
+        }
+      },
+      "animation": {
+        "type": "fade-in",
+        "speed": "normal"
+      },
+      "audio": {
+        "narration": "Merhaba! Bugün matematik dersimizde Pisagor teoremini öğreneceğiz."
+      }
+    },
+    {
+      "id": "formula-scene",
+      "type": "excalidraw",
+      "start": 3,
+      "duration": 5,
+      "data": {
+        "elements": [
+          {
+            "id": "formula-text",
+            "type": "text",
+            "x": 400,
+            "y": 300,
+            "width": 200,
+            "height": 40,
+            "angle": 0,
+            "strokeColor": "#2196F3",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 1,
+            "seed": 123456,
+            "versionNonce": 789012,
+            "isDeleted": false,
+            "text": "a² + b² = c²",
+            "fontSize": 32,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          },
+          {
+            "id": "formula-box",
+            "type": "rectangle",
+            "x": 350,
+            "y": 280,
+            "width": 300,
+            "height": 80,
+            "angle": 0,
+            "strokeColor": "#2196F3",
+            "backgroundColor": "transparent",
+            "fillStyle": "hachure",
+            "strokeWidth": 3,
+            "strokeStyle": "solid",
+            "roughness": 1.5,
+            "opacity": 1,
+            "seed": 654321,
+            "versionNonce": 210987,
+            "isDeleted": false
+          },
+          {
+            "id": "triangle",
+            "type": "line",
+            "x": 200,
+            "y": 400,
+            "width": 200,
+            "height": 150,
+            "angle": 0,
+            "strokeColor": "#FF5722",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 3,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 1,
+            "seed": 111222,
+            "versionNonce": 333444,
+            "isDeleted": false,
+            "points": [
+              [0, 0],
+              [200, 0],
+              [0, -150],
+              [0, 0]
+            ]
+          },
+          {
+            "id": "label-a",
+            "type": "text",
+            "x": 290,
+            "y": 420,
+            "width": 20,
+            "height": 20,
+            "angle": 0,
+            "strokeColor": "#FF5722",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 1,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 1,
+            "seed": 555666,
+            "versionNonce": 777888,
+            "isDeleted": false,
+            "text": "a",
+            "fontSize": 18,
+            "fontFamily": 1,
+            "textAlign": "center"
+          },
+          {
+            "id": "label-b",
+            "type": "text",
+            "x": 170,
+            "y": 320,
+            "width": 20,
+            "height": 20,
+            "angle": 0,
+            "strokeColor": "#FF5722",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 1,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 1,
+            "seed": 999000,
+            "versionNonce": 111000,
+            "isDeleted": false,
+            "text": "b",
+            "fontSize": 18,
+            "fontFamily": 1,
+            "textAlign": "center"
+          },
+          {
+            "id": "label-c",
+            "type": "text",
+            "x": 250,
+            "y": 310,
+            "width": 20,
+            "height": 20,
+            "angle": 0,
+            "strokeColor": "#4CAF50",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 1,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 1,
+            "seed": 222333,
+            "versionNonce": 444555,
+            "isDeleted": false,
+            "text": "c",
+            "fontSize": 18,
+            "fontFamily": 1,
+            "textAlign": "center"
+          }
+        ],
+        "appState": {
+          "viewBackgroundColor": "#ffffff"
+        }
+      },
+      "animation": {
+        "type": "progressive-draw",
+        "speed": "normal"
+      },
+      "audio": {
+        "narration": "Pisagor teoremi a kare artı b kare eşittir c kare şeklinde yazılır. Burada c hipotenüstür."
+      }
+    }
+  ],
+  "audio": {
+    "narration": "Pisagor teoremi matematik dersimiz",
+    "volume": 0.8
+  }
+}

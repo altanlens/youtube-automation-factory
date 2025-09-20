@@ -39,7 +39,6 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
         fontFamily: 'Arial, sans-serif',
         color: fillColor,
         WebkitTextStroke: `${animatedStrokeWidth}px ${strokeColor}`,
-        textStroke: `${animatedStrokeWidth}px ${strokeColor}`,
         textAlign: 'center',
         ...style,
       }}

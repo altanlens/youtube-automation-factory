@@ -1,6 +1,8 @@
 {
     "name": "YouTube Automation Station",
-    "dockerFile": "Dockerfile",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
     "customizations": {
         "vscode": {
             "extensions": [

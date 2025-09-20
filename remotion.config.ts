@@ -12,3 +12,7 @@ Config.setChromiumIgnoreCertificateErrors(false);
 
 // Statik dosyaların yolu
 Config.setPublicDir('./public');
+
+// Fast render ayarları - render script'lerinde kullanılacak
+// Config.setQuality ve Config.setCodec deprecated olduğu için
+// bu ayarlar script'lerde renderMedia() fonksiyonuna parametre olarak geçilecek

@@ -1,0 +1,357 @@
+{
+  "title": "Productivity for ADHD Brains",
+  "duration": 60,
+  "fps": 30,
+  "scenes": [
+    {
+      "id": "intro",
+      "duration": 10,
+      "title": "ADHD & Productivity",
+      "description": "Introduction with brain illustration",
+      "excalidraw": {
+        "elements": [
+          {
+            "id": "brain_1",
+            "type": "ellipse",
+            "x": 300,
+            "y": 150,
+            "width": 200,
+            "height": 150,
+            "strokeColor": "#e03131",
+            "backgroundColor": "#ffc9c9",
+            "strokeWidth": 3,
+            "roughness": 2,
+            "fillStyle": "hachure"
+          },
+          {
+            "id": "lightning_1",
+            "type": "line",
+            "x": 320,
+            "y": 180,
+            "points": [[0, 0], [15, 30], [5, 30], [20, 60]],
+            "strokeColor": "#fab005",
+            "strokeWidth": 4,
+            "roughness": 1.5
+          },
+          {
+            "id": "lightning_2",
+            "type": "line",
+            "x": 450,
+            "y": 170,
+            "points": [[0, 0], [12, 25], [3, 25], [15, 50]],
+            "strokeColor": "#fab005",
+            "strokeWidth": 4,
+            "roughness": 1.5
+          },
+          {
+            "id": "title_text",
+            "type": "text",
+            "x": 220,
+            "y": 350,
+            "text": "ADHD BRAINS ARE DIFFERENT",
+            "fontSize": 32,
+            "fontFamily": 1,
+            "strokeColor": "#1c7ed6",
+            "roughness": 1
+          },
+          {
+            "id": "subtitle_text",
+            "type": "text",
+            "x": 280,
+            "y": 390,
+            "text": "And that's perfectly normal!",
+            "fontSize": 18,
+            "fontFamily": 1,
+            "strokeColor": "#495057",
+            "roughness": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "problems",
+      "duration": 15,
+      "title": "Common Struggles",
+      "description": "ADHD productivity challenges",
+      "excalidraw": {
+        "elements": [
+          {
+            "id": "chaos_circle",
+            "type": "ellipse",
+            "x": 100,
+            "y": 100,
+            "width": 150,
+            "height": 150,
+            "strokeColor": "#e03131",
+            "backgroundColor": "#ffe3e3",
+            "strokeWidth": 2,
+            "roughness": 3,
+            "fillStyle": "zigzag"
+          },
+          {
+            "id": "distraction_1",
+            "type": "draw",
+            "x": 120,
+            "y": 130,
+            "points": [[0, 0], [5, 10], [15, 8], [25, 20], [30, 15], [40, 25]],
+            "strokeColor": "#e03131",
+            "strokeWidth": 3,
+            "roughness": 2
+          },
+          {
+            "id": "task_box_1",
+            "type": "rectangle",
+            "x": 350,
+            "y": 120,
+            "width": 120,
+            "height": 40,
+            "strokeColor": "#495057",
+            "backgroundColor": "#f8f9fa",
+            "strokeWidth": 2,
+            "roughness": 1.5
+          },
+          {
+            "id": "task_text_1",
+            "type": "text",
+            "x": 365,
+            "y": 135,
+            "text": "Important Task",
+            "fontSize": 14,
+            "strokeColor": "#495057"
+          },
+          {
+            "id": "procrastination_arrow",
+            "type": "arrow",
+            "x": 250,
+            "y": 140,
+            "points": [[0, 0], [70, 0]],
+            "strokeColor": "#e03131",
+            "strokeWidth": 3,
+            "endArrowhead": "arrow"
+          },
+          {
+            "id": "problem_title",
+            "type": "text",
+            "x": 150,
+            "y": 300,
+            "text": "Distractions • Procrastination • Overwhelm",
+            "fontSize": 24,
+            "strokeColor": "#e03131",
+            "fontWeight": "bold",
+            "minDuration": 4
+          }
+        ]
+      }
+    },
+    {
+      "id": "solution_1",
+      "duration": 15,
+      "title": "Time Blocking",
+      "description": "Time blocking strategy",
+      "excalidraw": {
+        "elements": [
+          {
+            "id": "calendar_grid",
+            "type": "rectangle",
+            "x": 200,
+            "y": 100,
+            "width": 400,
+            "height": 200,
+            "strokeColor": "#1c7ed6",
+            "backgroundColor": "#e7f5ff",
+            "strokeWidth": 2,
+            "roughness": 1
+          },
+          {
+            "id": "time_block_1",
+            "type": "rectangle",
+            "x": 220,
+            "y": 120,
+            "width": 80,
+            "height": 30,
+            "strokeColor": "#51cf66",
+            "backgroundColor": "#d3f9d8",
+            "strokeWidth": 2,
+            "roughness": 1.5
+          },
+          {
+            "id": "block_text_1",
+            "type": "text",
+            "x": 230,
+            "y": 130,
+            "text": "Focus Time",
+            "fontSize": 12,
+            "strokeColor": "#2b8a3e"
+          },
+          {
+            "id": "time_block_2",
+            "type": "rectangle",
+            "x": 320,
+            "y": 120,
+            "width": 80,
+            "height": 30,
+            "strokeColor": "#fab005",
+            "backgroundColor": "#fff3bf",
+            "strokeWidth": 2,
+            "roughness": 1.5
+          },
+          {
+            "id": "block_text_2",
+            "type": "text",
+            "x": 335,
+            "y": 130,
+            "text": "Break",
+            "fontSize": 12,
+            "strokeColor": "#e67700"
+          },
+          {
+            "id": "time_block_3",
+            "type": "rectangle",
+            "x": 420,
+            "y": 120,
+            "width": 80,
+            "height": 30,
+            "strokeColor": "#9775fa",
+            "backgroundColor": "#f3f0ff",
+            "strokeWidth": 2,
+            "roughness": 1.5
+          },
+          {
+            "id": "block_text_3",
+            "type": "text",
+            "x": 435,
+            "y": 130,
+            "text": "Creative",
+            "fontSize": 12,
+            "strokeColor": "#7048e8"
+          },
+          {
+            "id": "strategy_title",
+            "type": "text",
+            "x": 280,
+            "y": 350,
+            "text": "TIME BLOCKING = STRUCTURE",
+            "fontSize": 24,
+            "strokeColor": "#1c7ed6"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solution_2",
+      "duration": 15,
+      "title": "Pomodoro Technique",
+      "description": "25-minute focus sessions",
+      "excalidraw": {
+        "elements": [
+          {
+            "id": "tomato_timer",
+            "type": "ellipse",
+            "x": 350,
+            "y": 150,
+            "width": 100,
+            "height": 100,
+            "strokeColor": "#e03131",
+            "backgroundColor": "#ffc9c9",
+            "strokeWidth": 3,
+            "roughness": 2,
+            "fillStyle": "hachure"
+          },
+          {
+            "id": "timer_hand",
+            "type": "line",
+            "x": 400,
+            "y": 200,
+            "points": [[0, 0], [0, -30]],
+            "strokeColor": "#495057",
+            "strokeWidth": 4,
+            "roughness": 1
+          },
+          {
+            "id": "timer_text",
+            "type": "text",
+            "x": 385,
+            "y": 210,
+            "text": "25",
+            "fontSize": 20,
+            "strokeColor": "#495057",
+            "fontWeight": "bold"
+          },
+          {
+            "id": "cycle_arrow_1",
+            "type": "arrow",
+            "x": 480,
+            "y": 180,
+            "points": [[0, 0], [60, 0], [60, 40], [0, 40]],
+            "strokeColor": "#51cf66",
+            "strokeWidth": 3,
+            "endArrowhead": "arrow",
+            "roughness": 1.5
+          },
+          {
+            "id": "break_text",
+            "type": "text",
+            "x": 500,
+            "y": 195,
+            "text": "5 min\nbreak",
+            "fontSize": 14,
+            "strokeColor": "#51cf66",
+            "textAlign": "center"
+          },
+          {
+            "id": "pomodoro_title",
+            "type": "text",
+            "x": 300,
+            "y": 320,
+            "text": "25 MIN FOCUS + 5 MIN BREAK",
+            "fontSize": 22,
+            "strokeColor": "#e03131"
+          }
+        ]
+      }
+    },
+    {
+      "id": "outro",
+      "duration": 5,
+      "title": "Success Tips",
+      "description": "Final success message",
+      "excalidraw": {
+        "elements": [
+          {
+            "id": "success_brain",
+            "type": "ellipse",
+            "x": 300,
+            "y": 150,
+            "width": 200,
+            "height": 150,
+            "strokeColor": "#51cf66",
+            "backgroundColor": "#d3f9d8",
+            "strokeWidth": 3,
+            "roughness": 1.5,
+            "fillStyle": "solid"
+          },
+          {
+            "id": "checkmark",
+            "type": "line",
+            "x": 380,
+            "y": 210,
+            "points": [[0, 0], [15, 15], [35, -10]],
+            "strokeColor": "#51cf66",
+            "strokeWidth": 5,
+            "roughness": 1
+          },
+          {
+            "id": "success_text",
+            "type": "text",
+            "x": 280,
+            "y": 350,
+            "text": "SMALL STEPS = BIG WINS!",
+            "fontSize": 26,
+            "strokeColor": "#2b8a3e",
+            "fontWeight": "bold"
+          }
+        ]
+      }
+    }
+  ]
+}

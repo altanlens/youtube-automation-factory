@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "title": "Artificial Intelligence - technical video",
+    "description": "AI generated technical content about Artificial Intelligence",
+    "duration": 45,
+    "style": "technical",
+    "language": "en"
+  },
+  "scenes": [
+    {
+      "id": "intro",
+      "type": "text",
+      "start": 0,
+      "duration": 15,
+      "data": {
+        "title": "Artificial Intelligence",
+        "subtitle": "Technical Explanation",
+        "content": [
+          "In this video we will learn about Artificial Intelligence",
+          "With detailed explanations and visuals"
+        ],
+        "style": {
+          "fontSize": 48,
+          "color": "#2196F3",
+          "fontWeight": "bold",
+          "textAlign": "center"
+        }
+      },
+      "animation": {
+        "type": "fade-in",
+        "speed": "normal"
+      },
+      "audio": {
+        "narration": "Hello! Today we will explore Artificial Intelligence."
+      }
+    },
+    {
+      "id": "main-content",
+      "type": "excalidraw",
+      "start": 15,
+      "duration": 15,
+      "data": {
+        "elements": [
+          {
+            "id": "main-title",
+            "type": "text",
+            "x": 400,
+            "y": 200,
+            "width": 300,
+            "height": 50,
+            "angle": 0,
+            "strokeColor": "#2196F3",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 1,
+            "seed": 697663,
+            "versionNonce": 362758,
+            "isDeleted": false,
+            "text": "Artificial Intelligence",
+            "fontSize": 32,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ],
+        "appState": {
+          "viewBackgroundColor": "#ffffff"
+        }
+      },
+      "animation": {
+        "type": "progressive-draw",
+        "speed": "normal"
+      },
+      "audio": {
+        "narration": "Let's explore detailed information about Artificial Intelligence."
+      }
+    }
+  ],
+  "audio": {
+    "narration": "Artificial Intelligence konusu hakkında video",
+    "volume": 0.8
+  }
+}

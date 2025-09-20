@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "title": "Historia de España - documentary video",
+    "description": "AI generated documentary content about Historia de España",
+    "duration": 90,
+    "style": "documentary",
+    "language": "es"
+  },
+  "scenes": [
+    {
+      "id": "intro",
+      "type": "text",
+      "start": 0,
+      "duration": 30,
+      "data": {
+        "title": "Historia de España",
+        "subtitle": "Documental",
+        "content": [
+          "En este video aprenderemos sobre Historia de España",
+          "Con explicaciones detalladas y visuales"
+        ],
+        "style": {
+          "fontSize": 48,
+          "color": "#2196F3",
+          "fontWeight": "bold",
+          "textAlign": "center"
+        }
+      },
+      "animation": {
+        "type": "fade-in",
+        "speed": "normal"
+      },
+      "audio": {
+        "narration": "¡Hola! Hoy exploraremos Historia de España."
+      }
+    },
+    {
+      "id": "main-content",
+      "type": "excalidraw",
+      "start": 30,
+      "duration": 30,
+      "data": {
+        "elements": [
+          {
+            "id": "main-title",
+            "type": "text",
+            "x": 400,
+            "y": 200,
+            "width": 300,
+            "height": 50,
+            "angle": 0,
+            "strokeColor": "#2196F3",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 1,
+            "seed": 362829,
+            "versionNonce": 627505,
+            "isDeleted": false,
+            "text": "Historia de España",
+            "fontSize": 32,
+            "fontFamily": 1,
+            "textAlign": "center",
+            "verticalAlign": "middle"
+          }
+        ],
+        "appState": {
+          "viewBackgroundColor": "#ffffff"
+        }
+      },
+      "animation": {
+        "type": "progressive-draw",
+        "speed": "normal"
+      },
+      "audio": {
+        "narration": "Exploremos información detallada sobre Historia de España."
+      }
+    }
+  ],
+  "audio": {
+    "narration": "Historia de España konusu hakkında video",
+    "volume": 0.8
+  }
+}

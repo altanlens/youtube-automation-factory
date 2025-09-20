@@ -73,9 +73,9 @@ export const Waveform: React.FC<WaveformProps> = ({
         {/* Progress line */}
         {animated && (
           <line
-            x1={(progress % 1) * width}
+            x1={(currentTime % 1) * width}
             y1={0}
-            x2={(progress % 1) * width}
+            x2={(currentTime % 1) * width}
             y2={height}
             stroke={color}
             strokeWidth={2}
