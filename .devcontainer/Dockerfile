@@ -61,12 +61,6 @@ RUN mkdir -p /tmp/puppeteer_downloads \
     && chown -R node:node /home/node/.claude \
     && chown -R node:node /tmp/puppeteer_downloads
 
-# MCP setup script'ini executable yap (container build sırasında)
-COPY --chown=node:node .devcontainer/setup-mcp.sh /tmp/setup-mcp.sh
-RUN chmod +x /tmp/setup-mcp.sh && \
-    cp /tmp/setup-mcp.sh /home/node/setup-mcp.sh && \
-    rm /tmp/setup-mcp.sh
-
 # Çalışma dizinini ayarla
 WORKDIR /workspaces/youtube-automation-factory
 
