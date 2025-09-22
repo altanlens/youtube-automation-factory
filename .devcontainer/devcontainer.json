@@ -33,8 +33,5 @@
     "remoteUser": "node",
     "remoteEnv": {
         "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}"
-    },
-    "mounts": [
-        "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind,consistency=cached"
-    ]
+    }
 }
