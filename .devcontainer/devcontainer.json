@@ -3,6 +3,9 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
     "customizations": {
         "vscode": {
             "extensions": [
@@ -25,6 +28,14 @@
         }
     },
     "forwardPorts": [3000, 3001, 8000],
-    "postCreateCommand": "npm install --legacy-peer-deps",
-    "remoteUser": "node"
+    "postCreateCommand": "npm install --legacy-peer-deps && npm install -g @anthropic-ai/claude-code @modelcontextprotocol/server-github",
+    "postStartCommand": "bash .devcontainer/setup-mcp.sh",
+    "remoteUser": "node",
+    "remoteEnv": {
+        "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+        "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"
+    },
+    "mounts": [
+        "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind,consistency=cached"
+    ]
 }
