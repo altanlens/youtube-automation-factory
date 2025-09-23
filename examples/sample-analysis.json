@@ -1,200 +1,95 @@
 {
-  "version": "1.0",
+  "version": "1.0.0",
   "metadata": {
-    "title": "Pisagor Teoremi Nedir?",
-    "description": "Pisagor teoremini öğrenmek için interaktif matematik dersi",
-    "duration": 8,
+    "title": "Introduction to React Hooks",
+    "description": "A comprehensive guide to understanding and using React Hooks in modern applications",
+    "duration": 180,
     "style": "educational",
-    "language": "tr"
+    "language": "en",
+    "author": "YouTube Automation Factory",
+    "created": "2025-09-23T16:00:00Z",
+    "tags": ["react", "hooks", "javascript", "frontend", "tutorial"]
   },
   "scenes": [
     {
-      "id": "intro",
-      "type": "text",
-      "start": 0,
-      "duration": 3,
-      "data": {
-        "title": "Pisagor Teoremi",
-        "subtitle": "Matematik Dersi",
-        "content": [
-          "Bu derste Pisagor teoremini öğreneceğiz",
-          "Dik üçgenlerde kullanılan temel formül"
-        ],
-        "style": {
-          "fontSize": 48,
-          "color": "#2196F3",
-          "fontWeight": "bold",
-          "textAlign": "center"
-        }
-      },
-      "animation": {
-        "type": "fade-in",
-        "speed": "normal"
-      },
-      "audio": {
-        "narration": "Merhaba! Bugün matematik dersimizde Pisagor teoremini öğreneceğiz."
-      }
-    },
-    {
-      "id": "formula-scene",
+      "id": "intro-scene",
       "type": "excalidraw",
-      "start": 3,
-      "duration": 5,
+      "start": 0,
+      "duration": 30,
       "data": {
-        "elements": [
-          {
-            "id": "formula-text",
-            "type": "text",
-            "x": 400,
-            "y": 300,
-            "width": 200,
-            "height": 40,
-            "angle": 0,
-            "strokeColor": "#2196F3",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 1,
-            "seed": 123456,
-            "versionNonce": 789012,
-            "isDeleted": false,
-            "text": "a² + b² = c²",
-            "fontSize": 32,
-            "fontFamily": 1,
-            "textAlign": "center",
-            "verticalAlign": "middle"
-          },
-          {
-            "id": "formula-box",
-            "type": "rectangle",
-            "x": 350,
-            "y": 280,
-            "width": 300,
-            "height": 80,
-            "angle": 0,
-            "strokeColor": "#2196F3",
-            "backgroundColor": "transparent",
-            "fillStyle": "hachure",
-            "strokeWidth": 3,
-            "strokeStyle": "solid",
-            "roughness": 1.5,
-            "opacity": 1,
-            "seed": 654321,
-            "versionNonce": 210987,
-            "isDeleted": false
-          },
-          {
-            "id": "triangle",
-            "type": "line",
-            "x": 200,
-            "y": 400,
-            "width": 200,
-            "height": 150,
-            "angle": 0,
-            "strokeColor": "#FF5722",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 3,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 1,
-            "seed": 111222,
-            "versionNonce": 333444,
-            "isDeleted": false,
-            "points": [
-              [0, 0],
-              [200, 0],
-              [0, -150],
-              [0, 0]
-            ]
-          },
-          {
-            "id": "label-a",
-            "type": "text",
-            "x": 290,
-            "y": 420,
-            "width": 20,
-            "height": 20,
-            "angle": 0,
-            "strokeColor": "#FF5722",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 1,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 1,
-            "seed": 555666,
-            "versionNonce": 777888,
-            "isDeleted": false,
-            "text": "a",
-            "fontSize": 18,
-            "fontFamily": 1,
-            "textAlign": "center"
-          },
-          {
-            "id": "label-b",
-            "type": "text",
-            "x": 170,
-            "y": 320,
-            "width": 20,
-            "height": 20,
-            "angle": 0,
-            "strokeColor": "#FF5722",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 1,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 1,
-            "seed": 999000,
-            "versionNonce": 111000,
-            "isDeleted": false,
-            "text": "b",
-            "fontSize": 18,
-            "fontFamily": 1,
-            "textAlign": "center"
-          },
-          {
-            "id": "label-c",
-            "type": "text",
-            "x": 250,
-            "y": 310,
-            "width": 20,
-            "height": 20,
-            "angle": 0,
-            "strokeColor": "#4CAF50",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 1,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 1,
-            "seed": 222333,
-            "versionNonce": 444555,
-            "isDeleted": false,
-            "text": "c",
-            "fontSize": 18,
-            "fontFamily": 1,
-            "textAlign": "center"
-          }
-        ],
-        "appState": {
-          "viewBackgroundColor": "#ffffff"
-        }
+        "title": "What are React Hooks?",
+        "subtitle": "Modern React Development",
+        "content": [
+          "Functions that let you use state and other React features",
+          "Introduced in React 16.8",
+          "No more class components needed",
+          "Reusable stateful logic"
+        ]
       },
       "animation": {
         "type": "progressive-draw",
+        "speed": "normal",
+        "delay": 0.5
+      },
+      "audio": {
+        "narration": "Welcome to our comprehensive guide on React Hooks. Hooks are a game-changing feature that allows you to use state and other React features in functional components."
+      }
+    },
+    {
+      "id": "useState-explanation",
+      "type": "excalidraw",
+      "start": 30,
+      "duration": 45,
+      "data": {
+        "title": "useState Hook",
+        "subtitle": "Managing Component State",
+        "content": [
+          "const [count, setCount] = useState(0)",
+          "Returns current state and updater function",
+          "State persists between renders",
+          "Triggers re-render when updated"
+        ]
+      },
+      "animation": {
+        "type": "fade-in",
+        "speed": "slow",
+        "delay": 1.0
+      },
+      "audio": {
+        "narration": "The useState hook is the most fundamental hook. It allows you to add state to functional components."
+      }
+    },
+    {
+      "id": "useEffect-explanation",
+      "type": "excalidraw",
+      "start": 75,
+      "duration": 50,
+      "data": {
+        "title": "useEffect Hook",
+        "subtitle": "Side Effects in Components",
+        "content": [
+          "Replaces componentDidMount, componentDidUpdate, componentWillUnmount",
+          "Runs after every render by default",
+          "Can be optimized with dependency array",
+          "Cleanup function prevents memory leaks"
+        ]
+      },
+      "animation": {
+        "type": "slide-in",
         "speed": "normal"
       },
       "audio": {
-        "narration": "Pisagor teoremi a kare artı b kare eşittir c kare şeklinde yazılır. Burada c hipotenüstür."
+        "narration": "The useEffect hook handles side effects in your components. It replaces multiple lifecycle methods from class components."
       }
     }
   ],
   "audio": {
-    "narration": "Pisagor teoremi matematik dersimiz",
-    "volume": 0.8
+    "globalNarration": "In this tutorial, we'll explore React Hooks - one of the most important features in modern React development.",
+    "backgroundMusic": "educational-ambient.mp3",
+    "volume": {
+      "narration": 0.85,
+      "music": 0.15,
+      "effects": 0.3
+    }
   }
 }
